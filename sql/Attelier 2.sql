@@ -1,0 +1,84 @@
+CREATE TABLE Departments (
+  Code INTEGER PRIMARY KEY,
+  Name varchar(255) NOT NULL ,
+  Budget decimal NOT NULL 
+);
+
+CREATE TABLE Employees (
+  SSN INTEGER PRIMARY KEY,
+  Name varchar(255) NOT NULL ,
+  LastName varchar(255) NOT NULL ,
+  Department INTEGER NOT NULL , 
+  foreign key (department) references Departments(Code) 
+);
+
+INSERT INTO Departments(Code,Name,Budget) VALUES(14,'IT',65000);
+INSERT INTO Departments(Code,Name,Budget) VALUES(37,'Accounting',15000);
+INSERT INTO Departments(Code,Name,Budget) VALUES(59,'Human Resources',240000);
+INSERT INTO Departments(Code,Name,Budget) VALUES(77,'Research',55000);
+
+INSERT INTO Employees(SSN,Name,LastName,Department) VALUES('123234877','Michael','Rogers',14);
+INSERT INTO Employees(SSN,Name,LastName,Department) VALUES('152934485','Anand','Manikutty',14);
+INSERT INTO Employees(SSN,Name,LastName,Department) VALUES('222364883','Carol','Smith',37);
+INSERT INTO Employees(SSN,Name,LastName,Department) VALUES('326587417','Joe','Stevens',37);
+INSERT INTO Employees(SSN,Name,LastName,Department) VALUES('332154719','Mary-Anne','Foster',14);
+INSERT INTO Employees(SSN,Name,LastName,Department) VALUES('332569843','George','ODonnell',77);
+INSERT INTO Employees(SSN,Name,LastName,Department) VALUES('546523478','John','Doe',59);
+INSERT INTO Employees(SSN,Name,LastName,Department) VALUES('631231482','David','Smith',77);
+INSERT INTO Employees(SSN,Name,LastName,Department) VALUES('654873219','Zacary','Efron',59);
+INSERT INTO Employees(SSN,Name,LastName,Department) VALUES('745685214','Eric','Goldsmith',59);
+INSERT INTO Employees(SSN,Name,LastName,Department) VALUES('845657245','Elizabeth','Doe',14);
+INSERT INTO Employees(SSN,Name,LastName,Department) VALUES('845657246','Kumar','Swamy',14);
+
+--question 1:
+select LastName
+from Employees
+--question 2:
+select Distinct LastName
+from Employees
+--question 3:
+select *
+from Employees
+where LastName='Smith'
+--question 4:
+select *
+from Employees
+where LastName='Smith'or LastName='Doe'
+--question 5:
+select *
+from Employees
+where Department=14
+--question 6:
+select *
+from Employees
+where Department=14 OR Department=77
+--question 7:
+select *
+from Employees
+where LastName Like 's%'
+--question 8:
+select SUM(Budget) as [somme budget]
+from Departments
+--question 9:
+select Department,count(SSN)
+from Employees
+group by Department
+--question 10:
+select *
+from Employees inner join Departments on Employees.Department=Departments.Code
+--question 11:
+select x.Name,x.LastName,y.Name,y.Budget
+from Employees as x join Departments as y on x.Department=y.Code
+--question 12:
+select x.Name,x.LastName,y.Budget
+from Employees as x join Departments as y on x.Department=y.Code
+where Budget>60000
+--question 13:
+SELECT Name
+  FROM Departments  WHERE Budget  > (SELECT AVG(Budget)  FROM Departments );
+--question 14:
+select Department,count(SSN)
+from Employees
+group by Department
+Having count(SSN)>2
+--question 15:
